@@ -29,7 +29,17 @@ function App() {
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
-  useEffect(() => {}, [cardOne, cardTWO]);
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("match");
+        resetTurn();
+      } else {
+        console.log("those cards dont match");
+        resetTurn();
+      }
+    }
+  }, [choiceOne, choiceTwo]);
 
   const resetTurn = () => {
     setChoiceOne(null);
