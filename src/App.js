@@ -23,6 +23,8 @@ function App() {
     const shuffledCards = [...cardImages, ...cardImages] //we want ti duplicate array
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
+    setChoiceOne(null);
+    setChoiceTwo(null);
 
     setCards(shuffledCards);
     setTurns(0);
@@ -50,7 +52,9 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    shuffleCards();
+  }, []);
 
   console.log(cards);
 
