@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import SingleCard from "./components/SingleCard";
 
 const cardImages = [
   { src: "/img/helmet-1.png" },
@@ -14,6 +15,8 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages] //we want ti duplicate array
@@ -23,7 +26,16 @@ function App() {
     setCards(shuffledCards);
     setTurns(0);
   };
-  console.log(cards, turns);
+  const handleChoice = (card) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
+  useEffect(() => {}, [cardOne, cardTWO]);
+
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
+  };
 
   return (
     <div className="App">
@@ -32,12 +44,7 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <div className="card" key={card.id}>
-            <div>
-              <img src={card.src} className="front" alt="card front" />
-              <img src="/img/cover.png" alt="cover" className="card back" />
-            </div>
-          </div>
+          <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
         ))}
       </div>
     </div>
